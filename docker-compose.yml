@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  testshop:
+    image: "michalbl4/testshop-stripe:latest"
+    environment:
+      DJ_DEBUG: False
+      DJ_SECRET_KEY: # Укажите свои данные
+      STRIPE_SECRET_KEY: # Укажите свои данные
+      STRIPE_PUBLIC_KEY: # Укажите свои данные
+      ALLOWED_HOSTS: '127.0.0.1,localhost'
+      CSRF_TRUSTED_ORIGINS: # Укажите адреса, на которых сайт будет раверунт в продакшене
+      DB_URL: # Укажите свои данные при развертывании в продакшен 
+    volumes:
+      - ./nginx-templates:/etc/nginx/templates/
+      - nginx_assets:/var/www/
+    command:
+      - bash
+      - -c
+      - |
+        cp -r /static/ /var/www/ && \
+        gunicorn -b 0.0.0.0:8000 testshop.wsgi:application
+
+  nginx:
+    image: nginx:1.23.3
+    ports:
+      - 127.0.0.1:80:80
+    environment:
+      UPSTREAM_SERVER: testshop:8000
+    volumes:
+      - ./nginx-templates:/etc/nginx/templates/
+      - nginx_assets:/var/www/
+    depends_on:
+      - testshop
+
+volumes:
+  nginx_assets:
