@@ -26,6 +26,7 @@ DEBUG = env.bool('DJ_DEBUG', True)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', [])
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', [])
+SITE_URL = env('SITE_URL', 'http://127.0.0.1/')
 
 
 # Application definition
@@ -37,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'shop',
 ]
 
@@ -49,7 +49,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.sites.middleware.CurrentSiteMiddleware',
 ]
 
 ROOT_URLCONF = 'testshop.urls'
@@ -71,8 +70,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'testshop.wsgi.application'
-
-SITE_ID = 1
 
 DB_URL = env('DB_URL', f'sqlite:///{BASE_DIR}/db.sqlite3')
 

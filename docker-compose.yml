@@ -2,15 +2,18 @@ version: "3.7"
 
 services:
   testshop:
-    image: "michalbl4/testshop-stripe:latest"
+    build:
+      context: .
+    image: testshop:latest
     environment:
       DJ_DEBUG: False
       DJ_SECRET_KEY: # Укажите свои данные
       STRIPE_SECRET_KEY: # Укажите свои данные
       STRIPE_PUBLIC_KEY: # Укажите свои данные
-      ALLOWED_HOSTS: '127.0.0.1,localhost'
-      CSRF_TRUSTED_ORIGINS: # Укажите адреса, на которых сайт будет раверунт в продакшене
+      ALLOWED_HOSTS: '127.0.0.1,localhost' # Добавьте в список адрес сайта в продакшене
+      CSRF_TRUSTED_ORIGINS: # Укажите адреса, на которых сайт будет развернут в продакшене
       DB_URL: # Укажите свои данные при развертывании в продакшен 
+      SITE_URL: # Укажите адрес сайта, на котором он будет развернут в продакшене
     volumes:
       - ./nginx-templates:/etc/nginx/templates/
       - nginx_assets:/var/www/

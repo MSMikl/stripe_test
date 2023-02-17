@@ -31,8 +31,8 @@ class BuyView(View):
                 },
             ],
             mode='payment',
-            success_url=urljoin(request.site.domain, reverse('success')),
-            cancel_url=urljoin(request.site.domain, reverse('cancel')),            
+            success_url=urljoin(settings.SITE_URL, reverse('success')),
+            cancel_url=urljoin(settings.SITE_URL, reverse('cancel')),            
         )
         return JsonResponse({'session_id': session.stripe_id})
     
@@ -45,7 +45,7 @@ class ItemView(TemplateView):
         item = get_object_or_404(Item, id=kwargs['item_id'])
         context = {
             'item': item,
-            'buy_url': urljoin(self.request.site.domain, reverse('buy', kwargs={'item_id': item.id})),
+            'buy_url': urljoin(settings.SITE_URL, reverse('buy', kwargs={'item_id': item.id})),
             'public_key': settings.STRIPE_PUBLIC_KEY,
         }
         return context
