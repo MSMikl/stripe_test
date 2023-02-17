@@ -30,15 +30,21 @@ STRIPE_PUBLIC_KEY = {публичный ключ Stripe}
 
 Запустите миграции командой 
 
-`python3 manage.py migrate`
+````
+python3 manage.py migrate
+````
 
 Создайте суперпользователя командой
 
-`python3 manage.py createsuperuser`
+```
+python3 manage.py createsuperuser
+````
 
 Запустите сервер в режиме разработки:
 
-`python3 manage.py runserver`
+```
+python3 manage.py runserver
+```
 
 Зайдите в административную панель сайта по адресу https://127.0.0.1:8000/admin и создайте товар (можно в перспективе добавить в админке кнопку прямого перехода к товару на сайте).
 
@@ -58,15 +64,21 @@ STRIPE_PUBLIC_KEY = {публичный ключ Stripe}
 
 После этого запустите сборку и запуск контейнеров командой
 
-`docker-compose up --build`
+```
+docker-compose up --build
+```
 
 Откройте новый терминал и примените миграции командой
 
-`docker-compose run --rm testshop bash -c "python3 manage.py migrate"`
+```
+docker-compose run --rm testshop bash -c "python3 manage.py migrate"
+```
 
 Создайте суперпользователя командой
 
-`docker-compose run --rm testshop bash -c "python3 manage.py superuser"`
+```
+docker-compose run --rm testshop bash -c "python3 manage.py superuser"
+```
 
 В административной панели по адресу {SITE_URL}/admin создайте товар, после чего перейдте по адресу {SITE_URL}/item/1 и нажмите "Купить"
 
